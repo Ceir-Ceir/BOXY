@@ -128,11 +128,11 @@ export async function attachDocument(id: string, page_id: string | null) {
 export async function saveScenario(name: string, tool: string, params: Record<string, number>) {
   const { error } = await db().from("bb_scenarios").insert({ name, tool, params });
   if (error) throw new Error(error.message);
-  revalidatePath("/tools/growth");
+  revalidatePath("/tools", "layout");
 }
 export async function deleteScenario(id: string) {
   await db().from("bb_scenarios").delete().eq("id", id);
-  revalidatePath("/tools/growth");
+  revalidatePath("/tools", "layout");
 }
 
 /* ---------- helpers ---------- */
