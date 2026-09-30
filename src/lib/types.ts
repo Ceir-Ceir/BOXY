@@ -29,6 +29,7 @@ export interface Doc {
   page_id: string | null; tags: string[]; created_at: string;
 }
 export interface Scenario { id: string; name: string; tool: string; params: Record<string, number>; created_at: string; }
+export interface CapScenario { id: string; name: string; config: import("./capTable").CapTableConfig; created_at: string; updated_at: string; }
 
 export const STATUS_LABEL: Record<PageStatus, string> = { planned: "Planned", in_progress: "In progress", done: "Done", blocked: "Blocked" };
 export const TASK_LABEL: Record<TaskStatus, string> = { todo: "To do", doing: "Doing", done: "Done" };

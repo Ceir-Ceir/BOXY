@@ -1,11 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { LineChart, Lock, Zap, ArrowRight, Layers, CheckCircle2 } from "lucide-react";
+import { LineChart, Lock, Zap, PieChart, ArrowRight, Layers, CheckCircle2 } from "lucide-react";
 import type { Scenario } from "@/lib/types";
 import { fmtDate } from "@/lib/format";
 
 const TOOLS = [
+  {
+    href: "/cap-table",
+    toolKey: "cap_table",
+    title: "Cap Table & Dilution Modeler",
+    desc: "Interactive founder equity, pre/post option pool shuffle, YC post-money SAFEs, priced rounds, and non-participating preferred liquidation waterfall.",
+    badge: "Equity & Waterfall",
+    icon: PieChart,
+    highlights: ["Pre vs post option pool shuffle diff", "Post-money SAFE cap & discount conversion", "1x Non-participating exit waterfall & MOIC"],
+  },
   {
     href: "/tools/growth",
     toolKey: "growth",
@@ -39,7 +48,7 @@ export default function ToolsHubView({ scenarios }: { scenarios: Scenario[] }) {
   return (
     <div className="space-y-6">
       {/* Cards Grid */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {TOOLS.map((t) => {
           const toolScenarios = scenarios.filter((s) => s.tool === t.toolKey);
           return (

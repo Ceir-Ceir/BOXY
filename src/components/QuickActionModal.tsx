@@ -7,6 +7,7 @@ import {
   CheckSquare,
   Users,
   LineChart,
+  PieChart,
   Lock,
   Zap,
   Flame,
@@ -46,6 +47,16 @@ export default function QuickActionModal({
   if (!isOpen) return null;
 
   const actions = [
+    {
+      id: "cap-table-model",
+      title: "Cap Table & Dilution Modeler",
+      sub: "Founder equity, option pool shuffle, SAFEs & exit waterfall",
+      icon: PieChart,
+      action: () => {
+        router.push("/cap-table");
+        onClose();
+      },
+    },
     {
       id: "lock-in-model",
       title: "PE Lock-In & Liability Simulator",

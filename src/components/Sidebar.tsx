@@ -11,6 +11,7 @@ import {
   BookUser,
   FolderOpen,
   LineChart,
+  PieChart,
   Flame,
   LogOut,
   Menu,
@@ -30,6 +31,7 @@ const NAV = [
   { href: "/investors", label: "Investors", icon: Users },
   { href: "/contacts", label: "Contacts", icon: BookUser },
   { href: "/documents", label: "Documents", icon: FolderOpen },
+  { href: "/cap-table", label: "Cap Table", icon: PieChart },
   { href: "/tools", label: "Tools & Models", icon: LineChart },
 ];
 

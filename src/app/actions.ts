@@ -135,6 +135,42 @@ export async function deleteScenario(id: string) {
   revalidatePath("/tools", "layout");
 }
 
+/* ---------- cap table scenarios ---------- */
+export async function saveCapScenario(name: string, config: unknown, id?: string) {
+  if (id) {
+    const { data, error } = await db().from("bb_cap_scenarios").update({ name, config, updated_at: new Date().toISOString() }).eq("id", id).select().single();
+    if (error) throw new Error(error.message);
+    revalidatePath("/cap-table");
+    return data;
+  } else {
+    const { data, error } = await db().from("bb_cap_scenarios").insert({ name, config }).select().single();
+    if (error) throw new Error(error.message);
+    revalidatePath("/cap-table");
+    return data;
+  }
+}
+
+export async function renameCapScenario(id: string, name: string) {
+  const { error } = await db().from("bb_cap_scenarios").update({ name, updated_at: new Date().toISOString() }).eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/cap-table");
+}
+
+export async function duplicateCapScenario(id: string, newName: string) {
+  const { data: original, error: fetchErr } = await db().from("bb_cap_scenarios").select("config").eq("id", id).single();
+  if (fetchErr || !original) throw new Error(fetchErr?.message || "Scenario not found");
+  const { data, error } = await db().from("bb_cap_scenarios").insert({ name: newName, config: original.config }).select().single();
+  if (error) throw new Error(error.message);
+  revalidatePath("/cap-table");
+  return data;
+}
+
+export async function deleteCapScenario(id: string) {
+  const { error } = await db().from("bb_cap_scenarios").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/cap-table");
+}
+
 /* ---------- helpers ---------- */
 const str = (v: FormDataEntryValue | null) => { const s = v == null ? "" : String(v).trim(); return s ? s : null; };
 const num = (v: FormDataEntryValue | null) => { const n = parseFloat(String(v ?? "").replace(/[^0-9.-]/g, "")); return isNaN(n) ? null : n; };
